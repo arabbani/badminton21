@@ -87,10 +87,22 @@
           </div>
         </div>
       </form>
-      <div class="justify-end card-actions">
-        <button type="button" [disabled]="!isFormValid" class="btn btn-primary !disabled:cursor-not-allowed"
-          [class.btn-disabled]="!isFormValid" (click)="register()">Register</button>
+      <div class="pt-5 text-error" *ngIf="errorText">{{ errorText }}</div>
+      <div class="justify-center card-actions">
+        <button type="button" [disabled]="!isFormValid || saving"
+          class="btn btn-primary btn-sm !disabled:cursor-not-allowed" [class.btn-disabled]="!isFormValid"
+          [class.loading]="saving" (click)="register()">Register</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<div id="success-modal" class="modal" [class.modal-open]="saved">
+  <div class="modal-box">
+    <p>Registration success. Do you want to register another team</p>
+    <div class="modal-action">
+      <a class="btn btn-primary btn-sm" (click)="registerNewTeam()">Yes</a>
+      <a class="btn btn-sm" (click)="goBack()">No</a>
     </div>
   </div>
 </div>

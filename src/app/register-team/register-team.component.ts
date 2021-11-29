@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   Form,
@@ -19,11 +20,15 @@ export class RegisterTeamComponent implements OnInit {
   teamForm: FormGroup;
   playerOneForm: FormGroup;
   playerTwoForm: FormGroup;
+  saving = false;
+  errorText = '';
+  saved = false;
 
   constructor(
     private readonly fb: FormBuilder,
     private playerService: PlayerService,
-    private teamService: TeamsService
+    private teamService: TeamsService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +49,8 @@ export class RegisterTeamComponent implements OnInit {
   }
 
   async register() {
+    this.saving = true;
+    this.errorText = '';
     try {
       const [player1Ref, player2Ref] = await Promise.all([
         this.addPlayer(this.playerOneForm.value),
@@ -53,10 +60,24 @@ export class RegisterTeamComponent implements OnInit {
         ...this.teamForm.value,
         players: [player1Ref.id, player2Ref.id],
       });
-      this.teamForm.reset();
-      this.playerOneForm.reset();
-      this.playerTwoForm.reset();
-    } catch (error) {}
+      this.saved = true;
+      this.saving = false;
+    } catch (error) {
+      this.saving = false;
+      this.saved = false;
+      this.errorText = 'Something went wrong. Pleae try again';
+    }
+  }
+
+  registerNewTeam() {
+    this.teamForm.reset();
+    this.playerOneForm.reset();
+    this.playerTwoForm.reset();
+    this.saved = false;
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   private addPlayer(player: Player) {
