@@ -35,6 +35,14 @@ export class RegisterTeamComponent implements OnInit {
     this.playerTwoForm = this.createPlayerGroup();
   }
 
+  get isFormValid() {
+    return (
+      this.teamForm.valid &&
+      this.playerOneForm.valid &&
+      this.playerTwoForm.valid
+    );
+  }
+
   async register() {
     try {
       const [player1Ref, player2Ref] = await Promise.all([

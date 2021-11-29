@@ -1,68 +1,96 @@
-<div class="flex justify-center p-4 lg:p-0">
-  <div class="block p-6 bg-white shadow-md border border-gray-200 rounded-lg">
-    <h5 class="text-gray-900 text-xl mb-3">Team Registration</h5>
-    <form [formGroup]="teamForm" class="flex flex-col md:flex-row justify-between w-full">
-      <div class="mb-4 w-full md:w-1/2 md:mr-4">
-        <label for="team-name" class="input-label">Team name<span class="text-red-600">*</span></label>
-        <input type="text" id="team-name" class="input w-full" formControlName="name">
-      </div>
-      <div class="mb-4 w-full md:w-1/2">
-        <label for="place" class="input-label">Place<span class="text-red-600">*</span></label>
-        <input type="text" id="place" class="input w-full" formControlName="place">
-      </div>
-    </form>
-    <div class="flex flex-col md:flex-row">
-      <form [formGroup]="playerOneForm" class="border border-gray-200 p-4 rounded-lg md:mr-4 mb-4 md:mb-0">
-        <h6 class="text-gray-900 text-md mb-2 font-medium">Player 1</h6>
+<div class="flex justify-center p-3 md:p-5">
+  <div class="card shadow-2xl">
+    <div class="card-body">
+      <h2 class="card-title">Team Registration</h2>
+      <form [formGroup]="teamForm" class="flex flex-col md:flex-row">
+        <div class="form-control md:mr-8">
+          <label class="label" for="team-name">
+            <span class="label-text">Team Name</span>
+          </label>
+          <input type="text" id="team-name" class="input input-bordered input-sm focus:shadow-none"
+            formControlName="name">
+        </div>
+        <div class="form-control">
+          <label class="label" for="place">
+            <span class="label-text">Place</span>
+          </label>
+          <input type="text" id="place" class="input input-bordered input-sm focus:shadow-none" formControlName="place">
+        </div>
+      </form>
+      <form [formGroup]="playerOneForm" class="mt-5">
+        <div class="font-medium">Player 1</div>
         <div class="flex flex-col md:flex-row">
-          <div class="mb-4 mr-4">
-            <label for="player1-name" class="input-label">Name<span class="text-red-600">*</span></label>
-            <input type="text" id="player1-name" class="input" formControlName="name">
+          <div class="form-control md:mr-8">
+            <label class="label" for="player1-name">
+              <span class="label-text">Name</span>
+            </label>
+            <input type="text" id="player1-name" class="input input-bordered input-sm focus:shadow-none"
+              formControlName="name">
           </div>
-          <div class="mb-4">
-            <label for="player1-phone-number" class="input-label">Contact Number<span
-                class="text-red-600">*</span></label>
-            <input type="text" id="player1-phone-number" class="input" formControlName="phoneNumber">
+          <div class="form-control">
+            <label class="label" for="player1-phone-number">
+              <span class="label-text">Contact Number</span>
+            </label>
+            <input type="text" id="player1-phone-number" class="input input-bordered input-sm focus:shadow-none"
+              formControlName="phoneNumber">
           </div>
         </div>
         <div class="flex flex-col md:flex-row">
-          <div class="mb-4 mr-4">
-            <label for="player1-jersy-number" class="input-label">Jersy Number</label>
-            <input type="text" id="player1-jersy-number" class="input" formControlName="jersyNumber">
+          <div class="form-control md:mr-8">
+            <label class="label" for="player1-jersy-number">
+              <span class="label-text">Jersy Number</span>
+            </label>
+            <input type="text" id="player1-jersy-number" class="input input-bordered input-sm focus:shadow-none"
+              formControlName="jersyNumber">
           </div>
-          <div class="mb-4">
-            <label for="player1-age" class="input-label">Age<span class="text-red-600">*</span></label>
-            <input type="text" id="player1-age" class="input" formControlName="age">
+          <div class="form-control">
+            <label class="label" for="player1-age">
+              <span class="label-text">Age</span>
+            </label>
+            <input type="text" id="player1-age" class="input input-bordered input-sm focus:shadow-none"
+              formControlName="age">
           </div>
         </div>
       </form>
-      <form [formGroup]="playerTwoForm" class="border border-gray-200 p-4 rounded-lg md:mr-4">
-        <h6 class="text-gray-900 text-md mb-2 font-medium">Player 2</h6>
+      <form [formGroup]="playerTwoForm" class="mt-5">
+        <div class="font-medium">Player 2</div>
         <div class="flex flex-col md:flex-row">
-          <div class="mb-4 mr-4">
-            <label for="player2-name" class="input-label">Name<span class="text-red-600">*</span></label>
-            <input type="text" id="player2-name" class="input" formControlName="name">
+          <div class="form-control md:mr-8">
+            <label class="label" for="player2-name">
+              <span class="label-text">Name</span>
+            </label>
+            <input type="text" id="player2-name" class="input input-bordered input-sm focus:shadow-none"
+              formControlName="name">
           </div>
-          <div class="mb-4">
-            <label for="player2-phone-number" class="input-label">Contact Number<span
-                class="text-red-600">*</span></label>
-            <input type="text" id="player2-phone-number" class="input" formControlName="phoneNumber">
+          <div class="form-control">
+            <label class="label" for="player2-phone-number">
+              <span class="label-text">Contact Number</span>
+            </label>
+            <input type="text" id="player2-phone-number" class="input input-bordered input-sm focus:shadow-none"
+              formControlName="phoneNumber">
           </div>
         </div>
         <div class="flex flex-col md:flex-row">
-          <div class="mb-4 mr-4">
-            <label for="player2-jersy-number" class="input-label">Jersy Number</label>
-            <input type="text" id="player2-jersy-number" class="input" formControlName="jersyNumber">
+          <div class="form-control md:mr-8">
+            <label class="label" for="player2-jersy-number">
+              <span class="label-text">Jersy Number</span>
+            </label>
+            <input type="text" id="player2-jersy-number" class="input input-bordered input-sm focus:shadow-none"
+              formControlName="jersyNumber">
           </div>
-          <div class="mb-4">
-            <label for="player2-age" class="input-label">Age<span class="text-red-600">*</span></label>
-            <input type="text" id="player2-age" class="input" formControlName="age">
+          <div class="form-control">
+            <label class="label" for="player2-age">
+              <span class="label-text">Age</span>
+            </label>
+            <input type="text" id="player2-age" class="input input-bordered input-sm focus:shadow-none"
+              formControlName="age">
           </div>
         </div>
       </form>
+      <div class="justify-end card-actions">
+        <button type="button" [disabled]="!isFormValid" class="btn btn-primary !disabled:cursor-not-allowed"
+          [class.btn-disabled]="!isFormValid" (click)="register()">Register</button>
+      </div>
     </div>
-    <button type="button" [disabled]="!teamForm.valid || !playerOneForm.valid || !playerTwoForm.valid"
-      (click)="register()"
-      class="mt-5 text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-blue-400 disabled:cursor-not-allowed">Submit</button>
   </div>
 </div>
