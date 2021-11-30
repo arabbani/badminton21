@@ -4,6 +4,7 @@ import {
   Form,
   FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -20,6 +21,7 @@ export class RegisterTeamComponent implements OnInit {
   teamForm: FormGroup;
   playerOneForm: FormGroup;
   playerTwoForm: FormGroup;
+  captain = new FormControl('', Validators.required);
   saving = false;
   errorText = '';
   saved = false;
@@ -56,9 +58,11 @@ export class RegisterTeamComponent implements OnInit {
         this.addPlayer(this.playerOneForm.value),
         this.addPlayer(this.playerTwoForm.value),
       ]);
+      const captain = this.captain.value == 1 ? player1Ref.id : player2Ref.id;
       await this.teamService.addTeam({
         ...this.teamForm.value,
         players: [player1Ref.id, player2Ref.id],
+        captain,
       });
       this.saved = true;
       this.saving = false;

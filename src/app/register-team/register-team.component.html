@@ -18,7 +18,7 @@
         </div>
       </form>
       <form [formGroup]="playerOneForm" class="mt-5">
-        <div class="font-medium">Player 1</div>
+        <div class="font-medium">Player 1 Details</div>
         <div class="flex flex-col md:flex-row">
           <div class="form-control md:mr-8">
             <label class="label" for="player1-name">
@@ -53,7 +53,7 @@
         </div>
       </form>
       <form [formGroup]="playerTwoForm" class="mt-5">
-        <div class="font-medium">Player 2</div>
+        <div class="font-medium">Player 2 Details</div>
         <div class="flex flex-col md:flex-row">
           <div class="form-control md:mr-8">
             <label class="label" for="player2-name">
@@ -87,9 +87,24 @@
           </div>
         </div>
       </form>
+      <div class="mt-5" *ngIf="playerOneForm.valid && playerTwoForm.valid">
+        <div class="font-medium">Please select captain</div>
+        <div class="form-control">
+          <label class="cursor-pointer label justify-start">
+            <span class="label-text mr-5">{{ playerOneForm.value.name }}</span>
+            <input type="radio" class="radio radio-sm" [formControl]="captain" name="captain" value="1">
+          </label>
+        </div>
+        <div class="form-control">
+          <label class="cursor-pointer label justify-start">
+            <span class="label-text mr-5">{{ playerTwoForm.value.name }}</span>
+            <input type="radio" class="radio radio-sm" [formControl]="captain" name="captain" value="2">
+          </label>
+        </div>
+      </div>
       <div class="pt-5 text-error" *ngIf="errorText">{{ errorText }}</div>
       <div class="justify-center card-actions">
-        <button type="button" [disabled]="!isFormValid || saving"
+        <button type="button" [disabled]="!isFormValid || saving || !captain.valid"
           class="btn btn-primary btn-sm !disabled:cursor-not-allowed" [class.btn-disabled]="!isFormValid"
           [class.loading]="saving" (click)="register()">Register</button>
       </div>
