@@ -1,0 +1,46 @@
+<div class="flex justify-center p-3 md:p-5 w-full mx-auto">
+  <div class="card shadow-2xl w-full">
+    <div class="card-body">
+      <h2 class="card-title">Create Match</h2>
+      <h6 class="card-title font-normal text-lg">Add the teams from the below list</h6>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="shadow stats border" *ngFor="let team of teams$ | async"
+          [class.border-primary]="isTeamSelected(team)">
+          <div class="stat">
+            <a class="stat-figure cursor-pointer text-primary" (click)="selectTeam(team)"
+              [class.hidden]="isTeamSelected(team) || !selectionAllowed()">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+            </a>
+            <a class="stat-figure cursor-pointer text-primary" (click)="deselectTeam(team)"
+              [class.hidden]="!isTeamSelected(team)">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
+              </svg>
+            </a>
+            <div class="stat-title">{{ team.name }}</div>
+            <div class="stat-value font-normal text-base">{{ team.place }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="pt-5 text-error" *ngIf="errorText">{{ errorText }}</div>
+      <div class="justify-center card-actions">
+        <button type="button" [disabled]="selectionAllowed()"
+          class="btn btn-primary btn-sm !disabled:cursor-not-allowed" [class.btn-disabled]="selectionAllowed()"
+          [class.loading]="saving" (click)="createMatch()">Register</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" [class.modal-open]="saved">
+  <div class="modal-box">
+    <p>Match created sucessfully</p>
+    <div class="modal-action">
+      <a class="btn btn-primary btn-sm" (click)="goBack()">OK</a>
+    </div>
+  </div>
+</div>

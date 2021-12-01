@@ -91,14 +91,14 @@
         <div class="font-medium">Please select captain</div>
         <div class="form-control">
           <label class="cursor-pointer label justify-start">
-            <span class="label-text mr-5">{{ playerOneForm.value.name }}</span>
             <input type="radio" class="radio radio-sm" [formControl]="captain" name="captain" value="1">
+            <span class="label-text ml-5">{{ playerOneForm.value.name }}</span>
           </label>
         </div>
         <div class="form-control">
           <label class="cursor-pointer label justify-start">
-            <span class="label-text mr-5">{{ playerTwoForm.value.name }}</span>
             <input type="radio" class="radio radio-sm" [formControl]="captain" name="captain" value="2">
+            <span class="label-text ml-5">{{ playerTwoForm.value.name }}</span>
           </label>
         </div>
       </div>
@@ -112,7 +112,7 @@
   </div>
 </div>
 
-<div id="success-modal" class="modal" [class.modal-open]="saved">
+<div class="modal" [class.modal-open]="saved">
   <div class="modal-box">
     <p>Registration success. Do you want to register another team</p>
     <div class="modal-action">

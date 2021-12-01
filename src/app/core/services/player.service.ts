@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, Firestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Player } from '../modal/player';
 
 @Injectable({
@@ -8,11 +8,11 @@ import { Player } from '../modal/player';
 export class PlayerService {
   readonly playersCollection;
 
-  constructor(private readonly firestore: Firestore) {
-    this.playersCollection = collection(firestore, 'players');
+  constructor(afs: AngularFirestore) {
+    this.playersCollection = afs.collection<Player>('players');
   }
 
   addPlayer(player: Player) {
-    return addDoc(this.playersCollection, player);
+    return this.playersCollection.add(player);
   }
 }

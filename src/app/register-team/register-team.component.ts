@@ -1,8 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
-  Form,
-  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -15,7 +13,6 @@ import { TeamsService } from '../core/services/teams.service';
 @Component({
   selector: 'app-register-team',
   templateUrl: './register-team.component.html',
-  styleUrls: ['./register-team.component.css'],
 })
 export class RegisterTeamComponent implements OnInit {
   teamForm: FormGroup;
@@ -28,9 +25,9 @@ export class RegisterTeamComponent implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    private playerService: PlayerService,
-    private teamService: TeamsService,
-    private location: Location
+    private readonly playerService: PlayerService,
+    private readonly teamService: TeamsService,
+    private readonly location: Location
   ) {}
 
   ngOnInit(): void {
@@ -77,6 +74,7 @@ export class RegisterTeamComponent implements OnInit {
     this.teamForm.reset();
     this.playerOneForm.reset();
     this.playerTwoForm.reset();
+    this.captain.reset();
     this.saved = false;
   }
 

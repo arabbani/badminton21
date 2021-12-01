@@ -3,16 +3,21 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'teams',
-    loadChildren: () =>
-      import('./teams/teams.module').then((m) => m.TeamsModule),
-  },
-  {
     path: 'register',
     loadChildren: () =>
       import('./register-team/register-team.module').then(
         (m) => m.RegisterTeamModule
       ),
+  },
+  {
+    path: 'match',
+    loadChildren: () =>
+      import('./match/match.module').then((m) => m.MatchModule),
+  },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
 ];
 

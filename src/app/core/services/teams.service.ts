@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, Firestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { Team } from '../modal/team';
 
@@ -8,12 +8,22 @@ import { Team } from '../modal/team';
 })
 export class TeamsService {
   readonly teamsCollection;
+  teams$: Observable<Team[]>;
 
-  constructor(private readonly firestore: Firestore) {
-    this.teamsCollection = collection(firestore, 'team');
+  constructor(afs: AngularFirestore) {
+    this.teamsCollection = afs.collection<Team>('teams');
+    this.teams$ = this.teamsCollection.valueChanges({ idField: 'id' });
   }
 
   addTeam(team: Team) {
-    return addDoc(this.teamsCollection, team);
+    return this.teamsCollection.add(team);
   }
+
+  // getTeamsWithPlayer() {
+  //   return this.teams$.pipe(
+  //     map((team: Team) => {
+  //       console.log(team.id);
+  //     })
+  //   );
+  // }
 }
