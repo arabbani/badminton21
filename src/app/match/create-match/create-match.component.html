@@ -26,9 +26,27 @@
           </div>
         </div>
       </div>
+      <form [formGroup]="matchForm" class="mt-5">
+        <div class="flex flex-col md:flex-row">
+          <div class="form-control md:mr-8">
+            <label class="label" for="number-of-sets">
+              <span class="label-text">Number Of Sets</span>
+            </label>
+            <input type="text" id="number-of-sets" class="input input-bordered input-sm focus:shadow-none"
+              formControlName="numberOfSets">
+          </div>
+          <div class="form-control">
+            <label class="label" for="winning-point">
+              <span class="label-text">Winning Point</span>
+            </label>
+            <input type="text" id="winning-point" class="input input-bordered input-sm focus:shadow-none"
+              formControlName="winningPoint">
+          </div>
+        </div>
+      </form>
       <div class="pt-5 text-error" *ngIf="errorText">{{ errorText }}</div>
       <div class="justify-center card-actions">
-        <button type="button" [disabled]="selectionAllowed()"
+        <button type="button" [disabled]="selectionAllowed() || !matchForm.valid"
           class="btn btn-primary btn-sm !disabled:cursor-not-allowed" [class.btn-disabled]="selectionAllowed()"
           [class.loading]="saving" (click)="createMatch()">Register</button>
       </div>

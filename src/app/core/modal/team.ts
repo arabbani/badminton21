@@ -1,7 +1,4 @@
-import {
-  DocumentData,
-  DocumentReference,
-} from '@angular/fire/compat/firestore';
+import { DocumentReference } from '@angular/fire/compat/firestore';
 import { Player } from './player';
 
 export interface Team {
@@ -9,5 +6,4 @@ export interface Team {
   name: string;
   place: string;
   players: Player[];
-  captain: DocumentReference<DocumentData>;
 }

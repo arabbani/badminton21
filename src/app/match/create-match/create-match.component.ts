@@ -4,6 +4,7 @@ import {
   DocumentData,
   DocumentReference,
 } from '@angular/fire/compat/firestore';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Team } from 'src/app/core/modal/team';
 import { MatchService } from 'src/app/core/services/match.service';
@@ -19,14 +20,20 @@ export class CreateMatchComponent implements OnInit {
   errorText = '';
   saving = false;
   saved = false;
+  matchForm: FormGroup;
 
   constructor(
     private readonly teamsService: TeamsService,
     private readonly matchService: MatchService,
-    private readonly location: Location
+    private readonly location: Location,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.matchForm = this.fb.group({
+      numberOfSets: [3, [Validators.required, Validators.pattern('[0-9]*')]],
+      winningPoint: [15, [Validators.required, Validators.pattern('[0-9]*')]],
+    });
     this.teams$ = this.teamsService.teams$;
   }
 
@@ -35,8 +42,9 @@ export class CreateMatchComponent implements OnInit {
     this.errorText = '';
     try {
       await this.matchService.createMAtch({
-        team1: this.selectedTeams[0],
-        team2: this.selectedTeams[1],
+        firstTeam: this.selectedTeams[0],
+        secondTeam: this.selectedTeams[1],
+        ...this.matchForm.value,
       });
       this.saving = false;
       this.saved = true;

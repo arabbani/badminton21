@@ -3,4 +3,5 @@ export interface Player {
   jersyNumber: number;
   age: number;
   phoneNumber: number;
+  captain?: boolean;
 }

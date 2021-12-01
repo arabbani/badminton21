@@ -7,7 +7,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Player } from '../core/modal/player';
-import { PlayerService } from '../core/services/player.service';
 import { TeamsService } from '../core/services/teams.service';
 
 @Component({
@@ -25,7 +24,6 @@ export class RegisterTeamComponent implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly playerService: PlayerService,
     private readonly teamService: TeamsService,
     private readonly location: Location
   ) {}
@@ -51,15 +49,18 @@ export class RegisterTeamComponent implements OnInit {
     this.saving = true;
     this.errorText = '';
     try {
-      const [player1Ref, player2Ref] = await Promise.all([
-        this.addPlayer(this.playerOneForm.value),
-        this.addPlayer(this.playerTwoForm.value),
-      ]);
-      const captain = this.captain.value == 1 ? player1Ref.id : player2Ref.id;
+      const player1: Player = this.playerOneForm.value;
+      const player2: Player = this.playerTwoForm.value;
+
+      if (this.captain.value == 1) {
+        player1.captain = true;
+      } else {
+        player2.captain = true;
+      }
+
       await this.teamService.addTeam({
         ...this.teamForm.value,
-        players: [player1Ref.id, player2Ref.id],
-        captain,
+        players: [player1, player2],
       });
       this.saved = true;
       this.saving = false;
@@ -80,10 +81,6 @@ export class RegisterTeamComponent implements OnInit {
 
   goBack() {
     this.location.back();
-  }
-
-  private addPlayer(player: Player) {
-    return this.playerService.addPlayer(player);
   }
 
   private createPlayerGroup(): FormGroup {

@@ -4,6 +4,8 @@ import {
 } from '@angular/fire/compat/firestore';
 
 export interface Match {
-  team1: DocumentReference<DocumentData>;
-  team2: DocumentReference<DocumentData>;
+  firstTeam: DocumentReference<DocumentData>;
+  secondTeam: DocumentReference<DocumentData>;
+  numberOfSets: number;
+  winningPoint: number;
 }
