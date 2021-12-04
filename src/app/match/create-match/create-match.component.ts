@@ -16,7 +16,7 @@ import { TeamsService } from 'src/app/core/services/teams.service';
 })
 export class CreateMatchComponent implements OnInit {
   teams$: Observable<Team[]>;
-  selectedTeams: DocumentReference<DocumentData>[] = [];
+  selectedTeams: string[] = [];
   errorText = '';
   saving = false;
   saved = false;
@@ -44,6 +44,7 @@ export class CreateMatchComponent implements OnInit {
       await this.matchService.createMAtch({
         firstTeam: this.selectedTeams[0],
         secondTeam: this.selectedTeams[1],
+        finished: false,
         ...this.matchForm.value,
       });
       this.saving = false;

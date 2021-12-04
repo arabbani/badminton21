@@ -1,0 +1,17 @@
+<div class="flex justify-center p-3 md:p-5 w-full mx-auto">
+  <div class="card shadow-2xl w-full">
+    <div class="card-body">
+      <h2 class="card-title">Matches</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="card shadow-2xl" *ngFor="let match of matches$ | async">
+          <div class="card-body items-center">
+            <p class="text-center break-words">{{ match.firstTeamData?.name }}</p>
+            <div class="divider text-3xl">VS</div>
+            <p class="text-center break-words">{{ match.secondTeamData?.name }}</p>
+            <a class="cursor-pointer mt-5 text-primary">Start Match</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

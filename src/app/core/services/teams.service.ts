@@ -13,17 +13,14 @@ export class TeamsService {
   constructor(afs: AngularFirestore) {
     this.teamsCollection = afs.collection<Team>('teams');
     this.teams$ = this.teamsCollection.valueChanges({ idField: 'id' });
+    this.teamsCollection;
   }
 
   addTeam(team: Team) {
     return this.teamsCollection.add(team);
   }
 
-  // getTeamsWithPlayer() {
-  //   return this.teams$.pipe(
-  //     map((team: Team) => {
-  //       console.log(team.id);
-  //     })
-  //   );
-  // }
+  getTeam(ref: any) {
+    return this.teamsCollection.doc(ref).get();
+  }
 }
