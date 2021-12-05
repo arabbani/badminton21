@@ -6,4 +6,5 @@ export interface Team {
   name: string;
   place: string;
   players: Player[];
+  exited: boolean;
 }
