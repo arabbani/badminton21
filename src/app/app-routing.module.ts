@@ -15,6 +15,11 @@ const routes: Routes = [
       import('./match/match.module').then((m) => m.MatchModule),
   },
   {
+    path: 'scoreboard',
+    loadChildren: () =>
+      import('./scoreboard/scoreboard.module').then((m) => m.ScoreboardModule),
+  },
+  {
     path: '',
     loadChildren: () =>
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),

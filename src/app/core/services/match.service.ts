@@ -57,6 +57,6 @@ export class MatchService {
   }
 
   updateMatch(id: string, match: Partial<Match>) {
-    this.afs.doc<Match>(`matches/${id}`).update(match);
+    return this.afs.doc<Match>(`matches/${id}`).update(match);
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Match } from 'src/app/core/modal/match';
 import { MatchService } from 'src/app/core/services/match.service';
@@ -12,7 +13,10 @@ export class ScheduledMatchComponent implements OnInit, OnDestroy {
   matchesSubscription: Subscription;
   canStartMatch = true;
 
-  constructor(private readonly matchService: MatchService) {}
+  constructor(
+    private readonly matchService: MatchService,
+    private readonly router: Router
+  ) {}
 
   ngOnInit(): void {
     this.matchesSubscription = this.matchService
@@ -34,12 +38,21 @@ export class ScheduledMatchComponent implements OnInit, OnDestroy {
     }
   }
 
-  startMatch(match: Match) {
-    this.matchService.updateMatch(match.id!, {
-      scheduled: false,
-      ongoing: true,
-    });
+  async startMatch(match: Match) {
+    try {
+      await this.matchService.updateMatch(match.id!, {
+        scheduled: false,
+        ongoing: true,
+      });
+      this.goToScoreboard();
+    } catch (error) {}
   }
 
-  resumeMatch() {}
+  resumeMatch() {
+    this.goToScoreboard();
+  }
+
+  goToScoreboard() {
+    this.router.navigate(['/scoreboard']);
+  }
 }
