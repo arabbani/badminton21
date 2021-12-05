@@ -20,6 +20,13 @@ const routes: Routes = [
       import('./scoreboard/scoreboard.module').then((m) => m.ScoreboardModule),
   },
   {
+    path: 'manage-match',
+    loadChildren: () =>
+      import('./manage-match/manage-match.module').then(
+        (m) => m.ManageMatchModule
+      ),
+  },
+  {
     path: '',
     loadChildren: () =>
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),

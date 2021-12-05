@@ -53,6 +53,6 @@ export class ScheduledMatchComponent implements OnInit, OnDestroy {
   }
 
   goToScoreboard() {
-    this.router.navigate(['/scoreboard']);
+    this.router.navigate(['/manage-match']);
   }
 }
