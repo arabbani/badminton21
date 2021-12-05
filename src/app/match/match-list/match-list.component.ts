@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Match } from 'src/app/core/modal/match';
 import { MatchService } from 'src/app/core/services/match.service';
 
@@ -7,11 +7,32 @@ import { MatchService } from 'src/app/core/services/match.service';
   selector: 'app-match-list',
   templateUrl: './match-list.component.html',
 })
-export class MatchListComponent implements OnInit {
-  matches$: Observable<Match[]>;
+export class MatchListComponent implements OnInit, OnDestroy {
+  matches: Match[];
+  matchesSubscription: Subscription;
+  canAddToQueue = true;
+
   constructor(private readonly matchService: MatchService) {}
 
   ngOnInit(): void {
-    this.matches$ = this.matchService.getMatches();
+    this.matchesSubscription = this.matchService
+      .getMatches()
+      .subscribe((res) => {
+        this.matches = res.filter((match) => !match.inQueue);
+      });
+  }
+
+  ngOnDestroy() {
+    if (this.matchesSubscription) {
+      this.matchesSubscription.unsubscribe();
+    }
+  }
+
+  addToQueue(match: Match) {
+    this.matchService.updateMatch(match.id!, {
+      ongoing: false,
+      finished: false,
+      inQueue: true,
+    });
   }
 }

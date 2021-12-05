@@ -7,6 +7,8 @@ export interface Match {
   numberOfSets: number;
   winningPoint: number;
   finished: boolean;
+  ongoing: boolean;
+  inQueue: boolean;
   firstTeamData?: Team;
   secondTeamData?: Team;
 }

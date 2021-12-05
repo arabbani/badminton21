@@ -20,7 +20,7 @@ export class MatchService {
   matches$: Observable<Match[]>;
 
   constructor(
-    afs: AngularFirestore,
+    private afs: AngularFirestore,
     private readonly teamsService: TeamsService
   ) {
     this.matchesCollection = afs.collection<Match>('matches');
@@ -61,5 +61,9 @@ export class MatchService {
         });
       })
     );
+  }
+
+  updateMatch(id: string, match: Partial<Match>) {
+    this.afs.doc<Match>(`matches/${id}`).update(match);
   }
 }
