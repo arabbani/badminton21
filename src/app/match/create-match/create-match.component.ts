@@ -44,7 +44,6 @@ export class CreateMatchComponent implements OnInit, OnDestroy {
       await this.matchService.createMAtch({
         firstTeam: this.selectedTeams[0],
         secondTeam: this.selectedTeams[1],
-        finished: false,
         ...this.matchForm.value,
       });
       this.saving = false;

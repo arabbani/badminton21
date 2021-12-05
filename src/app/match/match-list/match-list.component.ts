@@ -31,7 +31,6 @@ export class MatchListComponent implements OnInit, OnDestroy {
   addToQueue(match: Match) {
     this.matchService.updateMatch(match.id!, {
       ongoing: false,
-      finished: false,
       inQueue: true,
     });
   }
