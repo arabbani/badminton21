@@ -1,7 +1,8 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { flatten, uniq } from 'lodash';
+import { combineLatestWith, Subscription } from 'rxjs';
 import { Team } from 'src/app/core/modal/team';
 import { MatchService } from 'src/app/core/services/match.service';
 import { TeamsService } from 'src/app/core/services/teams.service';
@@ -32,9 +33,20 @@ export class CreateMatchComponent implements OnInit, OnDestroy {
       winningPoint: [15, [Validators.required, Validators.pattern('[0-9]*')]],
     });
 
-    this.teamsSubscription = this.teamsService.teams$.subscribe((res) => {
-      this.teams = res.filter((team) => !team.exited);
-    });
+    this.teamsSubscription = this.teamsService.teams$
+      .pipe(combineLatestWith(this.matchService.matches$))
+      .subscribe(([teams, matches]) => {
+        const activeMatches = uniq(
+          flatten(
+            matches
+              .filter(
+                (match) => match.scheduled || match.ongoing || !match.finished
+              )
+              .map((match) => [match.firstTeam, match.secondTeam])
+          )
+        );
+        this.teams = teams.filter((team) => !activeMatches.includes(team.id!));
+      });
   }
 
   async createMatch() {

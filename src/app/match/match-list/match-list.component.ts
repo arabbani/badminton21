@@ -22,7 +22,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
           if (match.scheduled) {
             this.canSchedule = false;
           }
-          return !match.scheduled && !match.finished;
+          return !match.scheduled && !match.finished && !match.ongoing;
         });
       });
   }
