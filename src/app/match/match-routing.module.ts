@@ -12,6 +12,13 @@ const routes: Routes = [
     path: 'list',
     component: MatchListComponent,
   },
+  {
+    path: 'scheduled',
+    loadChildren: () =>
+      import('../scheduled-match/scheduled-match.module').then(
+        (m) => m.ScheduledMatchModule
+      ),
+  },
 ];
 
 @NgModule({

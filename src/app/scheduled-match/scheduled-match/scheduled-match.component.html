@@ -1,0 +1,14 @@
+<div class="flex flex-col p-3 md:p-5 w-full mx-auto">
+  <h2 class="text-2xl font-semibold mb-5">Scheduled Match</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="card bordered" *ngFor="let match of matches" [class.border-primary]="match.ongoing">
+      <div class="card-body items-center p-">
+        <p class="text-center break-all">{{ match.firstTeamData?.name }}</p>
+        <div class="divider text-3xl">Vs</div>
+        <p class="text-center break-all">{{ match.secondTeamData?.name }}</p>
+        <a class="cursor-pointer mt-5 text-primary" (click)="startMatch(match)" *ngIf="canStartMatch">Start Match</a>
+        <a class="cursor-pointer mt-5 text-primary" (click)="resumeMatch()" *ngIf="match.ongoing">Resume Match</a>
+      </div>
+    </div>
+  </div>
+</div>
