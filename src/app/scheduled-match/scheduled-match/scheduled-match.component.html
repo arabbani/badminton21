@@ -6,6 +6,10 @@
         <p class="text-center break-all">{{ match.firstTeamData?.name }}</p>
         <div class="divider text-3xl">Vs</div>
         <p class="text-center break-all">{{ match.secondTeamData?.name }}</p>
+        <div class="flex justify-between w-full pt-5 text-secondary">
+          <p>No of Sets: {{ match.numberOfSets }}</p>
+          <p>Match Point: {{ match.winningPoint }}</p>
+        </div>
         <a class="cursor-pointer mt-5 text-primary" (click)="startMatch(match)" *ngIf="canStartMatch">Start Match</a>
         <a class="cursor-pointer mt-5 text-primary" (click)="resumeMatch()" *ngIf="match.ongoing">Resume Match</a>
       </div>
