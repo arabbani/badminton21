@@ -18,7 +18,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
     this.matchesSubscription = this.matchService
       .getMatches()
       .subscribe((res) => {
-        this.matches = res.filter((match) => !match.inQueue);
+        this.matches = res.filter((match) => !match.scheduled);
       });
   }
 
@@ -31,7 +31,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
   addToQueue(match: Match) {
     this.matchService.updateMatch(match.id!, {
       ongoing: false,
-      inQueue: true,
+      scheduled: true,
     });
   }
 }
