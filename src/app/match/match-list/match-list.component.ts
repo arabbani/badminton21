@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Match } from 'src/app/core/modal/match';
 import { MatchService } from 'src/app/core/services/match.service';
 
@@ -10,7 +10,7 @@ import { MatchService } from 'src/app/core/services/match.service';
 export class MatchListComponent implements OnInit, OnDestroy {
   matches: Match[];
   matchesSubscription: Subscription;
-  canAddToQueue = true;
+  canSchedule = true;
 
   constructor(private readonly matchService: MatchService) {}
 
@@ -18,7 +18,12 @@ export class MatchListComponent implements OnInit, OnDestroy {
     this.matchesSubscription = this.matchService
       .getMatches()
       .subscribe((res) => {
-        this.matches = res.filter((match) => !match.scheduled);
+        this.matches = res.filter((match) => {
+          if (match.scheduled) {
+            this.canSchedule = false;
+          }
+          return !match.scheduled && !match.finished;
+        });
       });
   }
 
@@ -28,9 +33,8 @@ export class MatchListComponent implements OnInit, OnDestroy {
     }
   }
 
-  addToQueue(match: Match) {
+  schedduleMatch(match: Match) {
     this.matchService.updateMatch(match.id!, {
-      ongoing: false,
       scheduled: true,
     });
   }

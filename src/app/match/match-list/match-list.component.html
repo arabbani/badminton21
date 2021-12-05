@@ -6,7 +6,8 @@
         <p class="text-center break-all">{{ match.firstTeamData?.name }}</p>
         <div class="divider text-3xl">Vs</div>
         <p class="text-center break-all">{{ match.secondTeamData?.name }}</p>
-        <a class="cursor-pointer mt-5 text-primary" (click)="addToQueue(match)">Schedule For Next</a>
+        <a class="cursor-pointer mt-5 text-primary" (click)="schedduleMatch(match)" *ngIf="canSchedule">Schedule For
+          Next</a>
       </div>
     </div>
   </div>

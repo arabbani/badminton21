@@ -8,6 +8,7 @@ export interface Match {
   winningPoint: number;
   ongoing: boolean;
   scheduled: boolean;
+  finished: boolean;
   firstTeamData?: Team;
   secondTeamData?: Team;
 }
