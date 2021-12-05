@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ManageMatchComponent } from './manage-match/manage-match.component';
+import { ManageMatchComponent } from './manage-match.component';
 
 const routes: Routes = [
   {

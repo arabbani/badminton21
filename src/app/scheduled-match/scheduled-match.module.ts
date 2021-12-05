@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ScheduledMatchRoutingModule } from './scheduled-match-routing.module';
-import { ScheduledMatchComponent } from './scheduled-match/scheduled-match.component';
+import { ScheduledMatchComponent } from './scheduled-match.component';
 
 @NgModule({
   declarations: [ScheduledMatchComponent],

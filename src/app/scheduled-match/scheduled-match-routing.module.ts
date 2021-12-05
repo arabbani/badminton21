@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ScheduledMatchComponent } from './scheduled-match/scheduled-match.component';
+import { ScheduledMatchComponent } from './scheduled-match.component';
 
 const routes: Routes = [
   {
