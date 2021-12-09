@@ -112,7 +112,7 @@
   </div>
 </div>
 
-<div class="modal" [class.modal-open]="saved">
+<div class="modal" [class.modal-open]="saved && !errorText">
   <div class="modal-box">
     <p>Registration success. Do you want to register another team</p>
     <div class="modal-action">

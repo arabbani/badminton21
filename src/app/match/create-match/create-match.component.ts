@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { flatten, uniq } from 'lodash';
 import { combineLatestWith, Subscription } from 'rxjs';
+import { SetNumber } from 'src/app/core/modal/set-number';
 import { Team } from 'src/app/core/modal/team';
 import { MatchService } from 'src/app/core/services/match.service';
 import { TeamsService } from 'src/app/core/services/teams.service';
@@ -45,7 +46,9 @@ export class CreateMatchComponent implements OnInit, OnDestroy {
               .map((match) => [match.firstTeam, match.secondTeam])
           )
         );
-        this.teams = teams.filter((team) => !activeMatches.includes(team.id!));
+        this.teams = teams.filter(
+          (team) => !team.exited && !activeMatches.includes(team.id!)
+        );
       });
   }
 
@@ -57,6 +60,14 @@ export class CreateMatchComponent implements OnInit, OnDestroy {
         firstTeam: this.selectedTeams[0],
         secondTeam: this.selectedTeams[1],
         ...this.matchForm.value,
+        sets: [
+          {
+            setNumber: SetNumber.First,
+            firstTeamPoint: 0,
+            secondTeamPoint: 0,
+          },
+        ],
+        currentSet: SetNumber.First,
       });
       this.saving = false;
       this.saved = true;
