@@ -1,3 +1,5 @@
+import { SetDetails } from './set-details';
+import { SetNumber } from './set-number';
 import { Team } from './team';
 
 export interface Match {
@@ -11,4 +13,6 @@ export interface Match {
   finished: boolean;
   firstTeamData?: Team;
   secondTeamData?: Team;
+  sets: SetDetails[];
+  currentSet: SetNumber;
 }
