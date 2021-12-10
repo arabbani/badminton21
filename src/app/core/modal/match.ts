@@ -15,4 +15,5 @@ export interface Match {
   secondTeamData?: Team;
   sets: SetDetails[];
   currentSet: SetNumber;
+  currentSetWinningPoint: number;
 }

@@ -68,6 +68,7 @@ export class CreateMatchComponent implements OnInit, OnDestroy {
           },
         ],
         currentSet: SetNumber.First,
+        currentSetWinningPoint: this.matchForm.value.winningPoint,
       });
       this.saving = false;
       this.saved = true;
