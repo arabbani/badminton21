@@ -20,7 +20,7 @@ export class ScheduledMatchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.matchesSubscription = this.matchService
-      .getMatches()
+      .getMatchesWithTeamData()
       .subscribe((res) => {
         this.matches = res.filter((match) => {
           if (match.ongoing) {

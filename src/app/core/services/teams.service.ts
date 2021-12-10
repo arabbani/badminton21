@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
 import { Team } from '../modal/team';
 
 @Injectable({
@@ -8,12 +7,13 @@ import { Team } from '../modal/team';
 })
 export class TeamsService {
   readonly teamsCollection;
-  teams$: Observable<Team[]>;
 
   constructor(afs: AngularFirestore) {
     this.teamsCollection = afs.collection<Team>('teams');
-    this.teams$ = this.teamsCollection.valueChanges({ idField: 'id' });
-    this.teamsCollection;
+  }
+
+  getTeams() {
+    return this.teamsCollection.valueChanges({ idField: 'id' });
   }
 
   addTeam(team: Team) {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { flatten, uniq } from 'lodash';
-import { combineLatest, map, Observable, of, switchMap } from 'rxjs';
+import { combineLatest, map, of, switchMap } from 'rxjs';
 import { Match } from '../modal/match';
 import { TeamsService } from './teams.service';
 
@@ -10,14 +10,12 @@ import { TeamsService } from './teams.service';
 })
 export class MatchService {
   readonly matchesCollection;
-  matches$: Observable<Match[]>;
 
   constructor(
     private afs: AngularFirestore,
     private readonly teamsService: TeamsService
   ) {
     this.matchesCollection = afs.collection<Match>('matches');
-    this.matches$ = this.matchesCollection.valueChanges({ idField: 'id' });
   }
 
   createMAtch(match: Match) {
@@ -25,7 +23,11 @@ export class MatchService {
   }
 
   getMatches() {
-    return this.matches$.pipe(
+    return this.matchesCollection.valueChanges({ idField: 'id' });
+  }
+
+  getMatchesWithTeamData() {
+    return this.getMatches().pipe(
       switchMap((matches) => {
         const teamIds = uniq(
           flatten(matches.map((match) => [match.firstTeam, match.secondTeam]))

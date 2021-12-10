@@ -34,8 +34,9 @@ export class CreateMatchComponent implements OnInit, OnDestroy {
       winningPoint: [15, [Validators.required, Validators.pattern('[0-9]*')]],
     });
 
-    this.teamsSubscription = this.teamsService.teams$
-      .pipe(combineLatestWith(this.matchService.matches$))
+    this.teamsSubscription = this.teamsService
+      .getTeams()
+      .pipe(combineLatestWith(this.matchService.getMatches()))
       .subscribe(([teams, matches]) => {
         const activeMatches = uniq(
           flatten(
