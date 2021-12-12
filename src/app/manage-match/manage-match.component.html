@@ -10,9 +10,9 @@
               {{ player.name }} <span *ngIf="player.captain">(C)</span>
             </p>
           </div>
-          <p class="pt-5 text-center text-2xl font-semibold">{{ getCurrentPoint(1) }}</p>
+          <p class="pt-5 text-center text-4xl font-bold">{{ getCurrentPoint(1) }}</p>
           <div class="mt-5 text-right">
-            <button class="btn btn-circle btn-primary !disabled:cursor-not-allowed" (click)="addPoint(1)"
+            <button class="btn btn-circle btn-primary !disabled:cursor-not-allowed text-lg" (click)="addPoint(1)"
               [disabled]="updatingPoint">+1</button>
           </div>
         </div>
@@ -25,9 +25,9 @@
               {{ player.name }} <span *ngIf="player.captain">(C)</span>
             </p>
           </div>
-          <p class="pt-5 text-center text-2xl font-semibold">{{ getCurrentPoint(2) }}</p>
+          <p class="pt-5 text-center text-4xl font-bold">{{ getCurrentPoint(2) }}</p>
           <div class="mt-5 text-right">
-            <button class="btn btn-circle btn-primary !disabled:cursor-not-allowed" (click)="addPoint(2)"
+            <button class="btn btn-circle btn-primary !disabled:cursor-not-allowed text-lg" (click)="addPoint(2)"
               [disabled]="updatingPoint">+1</button>
           </div>
         </div>
