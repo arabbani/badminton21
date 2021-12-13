@@ -57,6 +57,7 @@
           <button type="button" [disabled]="selectionAllowed() || !matchForm.valid"
             class="btn btn-primary btn-sm !disabled:cursor-not-allowed" [class.btn-disabled]="selectionAllowed()"
             [class.loading]="saving" (click)="createMatch()">Register</button>
+          <button type="button" class="btn btn-secondary btn-sm" (click)="goBack()">Back</button>
         </div>
       </div>
     </div>

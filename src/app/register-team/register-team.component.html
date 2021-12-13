@@ -52,6 +52,7 @@
         <button type="button" [disabled]="!teamForm.valid || saving"
           class="btn btn-primary btn-sm !disabled:cursor-not-allowed" [class.btn-disabled]="!teamForm.valid"
           [class.loading]="saving" (click)="register()">Register</button>
+        <button type="button" class="btn btn-secondary btn-sm" (click)="goBack()">Back</button>
       </div>
     </div>
   </div>
