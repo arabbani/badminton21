@@ -10,7 +10,6 @@ import { MatchService } from 'src/app/core/services/match.service';
 export class MatchListComponent implements OnInit, OnDestroy {
   matches: Match[];
   matchesSubscription: Subscription;
-  canSchedule = true;
 
   constructor(private readonly matchService: MatchService) {}
 
@@ -18,12 +17,10 @@ export class MatchListComponent implements OnInit, OnDestroy {
     this.matchesSubscription = this.matchService
       .getMatchesWithTeamData()
       .subscribe((res) => {
-        this.matches = res.filter((match) => {
-          if (match.scheduled) {
-            this.canSchedule = false;
-          }
-          return !match.scheduled && !match.finished && !match.ongoing;
-        });
+        const matches = res.filter((match) => !match.finished);
+        this.matches = matches.sort(
+          (matchA, matchB) => matchA.matchNumber - matchB.matchNumber
+        );
       });
   }
 
@@ -31,11 +28,5 @@ export class MatchListComponent implements OnInit, OnDestroy {
     if (this.matchesSubscription) {
       this.matchesSubscription.unsubscribe();
     }
-  }
-
-  schedduleMatch(match: Match) {
-    this.matchService.updateMatch(match.id!, {
-      scheduled: true,
-    });
   }
 }

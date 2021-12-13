@@ -11,8 +11,7 @@
             <p>No of Sets: {{ match.numberOfSets }}</p>
             <p>Match Point: {{ match.winningPoint }}</p>
           </div>
-          <a class="cursor-pointer mt-5 text-primary" (click)="schedduleMatch(match)" *ngIf="canSchedule">Schedule For
-            Next</a>
+          <div class="badge badge-primary" *ngIf="match.ongoing">Ongoing</div>
         </div>
       </div>
     </div>
