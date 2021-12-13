@@ -1,10 +1,10 @@
 <div class="flex flex-col justify-center p-2 md:p-5 w-full mx-auto">
   <ng-container *ngIf="teams && teams.length; else noTeams">
-    <h2 class="text-2xl font-semibold mb-5">Create Match</h2>
+    <h2 class="text-2xl font-semibold mb-4">Create Match</h2>
     <div class="card shadow-2xl w-full">
       <div class="card-body">
         <h6 class="card-title font-normal text-lg">Add the teams from the below list</h6>
-        <form [formGroup]="matchForm" class="mb-5">
+        <form [formGroup]="matchForm" class="mb-4">
           <div class="flex flex-col md:flex-row">
             <div class="form-control md:mr-8">
               <label class="label" for="number-of-sets">
@@ -26,7 +26,7 @@
           <div class="card bordered" *ngFor="let team of teams" [class.border-primary]="isTeamSelected(team)">
             <div class="card-body p-5">
               <p class="card-title break-all">{{ team.name }}</p>
-              <div class="flex justify-between mb-5">
+              <div class="flex justify-between mb-4">
                 <p>{{ team.place }}</p>
                 <div>
                   <a class="cursor-pointer text-primary" (click)="selectTeam(team)"
@@ -52,7 +52,7 @@
             </div>
           </div>
         </div>
-        <div class="pt-5 text-error" *ngIf="errorText">{{ errorText }}</div>
+        <div class="pt-4 text-error" *ngIf="errorText">{{ errorText }}</div>
         <div class="justify-center card-actions">
           <button type="button" [disabled]="selectionAllowed() || !matchForm.valid"
             class="btn btn-primary btn-sm !disabled:cursor-not-allowed" [class.btn-disabled]="selectionAllowed()"
