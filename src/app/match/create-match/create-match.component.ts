@@ -20,6 +20,7 @@ export class CreateMatchComponent implements OnInit, OnDestroy {
   saving = false;
   saved = false;
   matchForm: FormGroup;
+  matchNumber: number;
 
   constructor(
     private readonly teamsService: TeamsService,
@@ -38,15 +39,21 @@ export class CreateMatchComponent implements OnInit, OnDestroy {
       .getTeams()
       .pipe(combineLatestWith(this.matchService.getMatches()))
       .subscribe(([teams, matches]) => {
+        let matchCount = 0;
         const activeMatches = uniq(
           flatten(
             matches
-              .filter(
-                (match) => match.scheduled || match.ongoing || !match.finished
-              )
+              .filter((match) => {
+                if (matchCount < match.matchNumber) {
+                  matchCount = match.matchNumber;
+                }
+
+                return !match.finished;
+              })
               .map((match) => [match.firstTeam, match.secondTeam])
           )
         );
+        this.matchNumber = matchCount + 1;
         this.teams = teams.filter(
           (team) => !team.exited && !activeMatches.includes(team.id!)
         );
@@ -70,6 +77,7 @@ export class CreateMatchComponent implements OnInit, OnDestroy {
         ],
         currentSet: SetNumber.First,
         currentSetWinningPoint: this.matchForm.value.winningPoint,
+        matchNumber: this.matchNumber,
       });
       this.saving = false;
       this.saved = true;

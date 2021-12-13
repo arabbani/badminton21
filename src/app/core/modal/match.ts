@@ -4,15 +4,15 @@ import { Team } from './team';
 
 export interface Match {
   id?: string;
+  matchNumber: number;
   firstTeam: string;
   secondTeam: string;
+  firstTeamData?: Team;
+  secondTeamData?: Team;
   numberOfSets: number;
   winningPoint: number;
   ongoing: boolean;
-  scheduled: boolean;
   finished: boolean;
-  firstTeamData?: Team;
-  secondTeamData?: Team;
   sets: SetDetails[];
   currentSet: SetNumber;
   currentSetWinningPoint: number;

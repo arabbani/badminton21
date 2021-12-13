@@ -1,22 +1,27 @@
-<div class="flex flex-col lg:flex-row justify-center items-center p-3 md:p-5 min-h-screen">
+<div class="flex flex-col justify-center items-center p-3 md:p-5 w-full min-h-screen max-h-screen">
   <ng-container *ngIf="match; else noOngoingMatch">
-    <div class="card bordered h-auto w-full lg:w-2/4 lg:mr-5">
-      <div class="card-body">
-        <h4 class="card-title font-medium text-lg">{{ match.firstTeamData?.name }}</h4>
-        <div class="flex flex-row">
-          <p *ngFor="let player of match.firstTeamData?.players">
-            {{ player.name }} <span *ngIf="player.captain">(C)</span>
-          </p>
+    <p class="font-bold text-4xl">Set {{ match.currentSet + 1 }}</p>
+    <div class="flex flex-col lg:flex-row justify-center w-full pt-5">
+      <div class="card bordered h-auto w-full lg:w-2/4 lg:mr-5">
+        <div class="card-body items-center">
+          <h4 class="card-title font-medium text-lg mb-0 break-all">{{ match.firstTeamData?.name }}</h4>
+          <p class="text-9xl">{{ getCurrentPoint(1) }}</p>
+          <div class="flex flex-col self-start">
+            <p *ngFor="let player of match.firstTeamData?.players">
+              {{ player.name }} <span *ngIf="player.captain">(C)</span>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="card bordered h-auto w-full lg:w-2/4 mt-5 lg:mt-0">
-      <div class="card-body">
-        <h4 class="card-title font-medium text-lg">{{ match.secondTeamData?.name }}</h4>
-        <div class="flex">
-          <p *ngFor="let player of match.secondTeamData?.players">
-            {{ player.name }} <span *ngIf="player.captain">(C)</span>
-          </p>
+      <div class="card bordered h-auto w-full lg:w-2/4 mt-5 lg:mt-0">
+        <div class="card-body items-center">
+          <h4 class="card-title font-medium text-lg mb-0 break-all">{{ match.secondTeamData?.name }}</h4>
+          <p class="text-9xl">{{ getCurrentPoint(2) }}</p>
+          <div class="flex flex-col self-start">
+            <p *ngFor="let player of match.secondTeamData?.players">
+              {{ player.name }} <span *ngIf="player.captain">(C)</span>
+            </p>
+          </div>
         </div>
       </div>
     </div>

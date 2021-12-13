@@ -67,7 +67,7 @@ export class ManageMatchComponent implements OnInit, OnDestroy {
             updatedMatch.currentSetWinningPoint =
               this.match.currentSetWinningPoint + 1;
           } else if (set.firstTeamPoint === this.match.currentSetWinningPoint) {
-            if (this.match.currentSet < this.match.numberOfSets) {
+            if (this.match.currentSet + 1 < this.match.numberOfSets) {
               updatedMatch.currentSet = this.match.currentSet + 1;
               updatedMatch.currentSetWinningPoint = this.match.winningPoint;
               sets.push({
@@ -94,9 +94,9 @@ export class ManageMatchComponent implements OnInit, OnDestroy {
           } else if (
             set.secondTeamPoint === this.match.currentSetWinningPoint
           ) {
-            if (this.match.currentSet < this.match.numberOfSets) {
+            updatedMatch.currentSetWinningPoint = this.match.winningPoint;
+            if (this.match.currentSet + 1 < this.match.numberOfSets) {
               updatedMatch.currentSet = this.match.currentSet + 1;
-              updatedMatch.currentSetWinningPoint = this.match.winningPoint;
               sets.push({
                 setNumber: updatedMatch.currentSet,
                 firstTeamPoint: 0,
@@ -105,6 +105,7 @@ export class ManageMatchComponent implements OnInit, OnDestroy {
               setCompleted = true;
             } else {
               updatedMatch.finished = true;
+              updatedMatch.ongoing = false;
               updatedMatch.winnerTeam = 2;
             }
           }
@@ -120,6 +121,6 @@ export class ManageMatchComponent implements OnInit, OnDestroy {
   }
 
   setCompletionAlert() {
-    window.alert(`Set ${this.match.currentSet} Completed`);
+    window.alert(`Set ${this.match.currentSet + 1} Completed`);
   }
 }

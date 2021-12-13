@@ -30,4 +30,14 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
       this.matchesSubscription.unsubscribe();
     }
   }
+
+  getCurrentPoint(teamNumber: number) {
+    const currentSet = this.match.sets.filter(
+      (set) => set.setNumber === this.match.currentSet
+    )[0];
+
+    return teamNumber === 1
+      ? currentSet.firstTeamPoint
+      : currentSet.secondTeamPoint;
+  }
 }
