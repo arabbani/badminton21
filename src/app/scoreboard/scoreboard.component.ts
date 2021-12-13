@@ -2,14 +2,17 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Match } from 'src/app/core/modal/match';
 import { MatchService } from 'src/app/core/services/match.service';
+import { SetDetails } from '../core/modal/set-details';
 
 @Component({
   selector: 'app-scoreboard',
   templateUrl: './scoreboard.component.html',
+  styleUrls: ['./scoreboard.component.scss'],
 })
 export class ScoreboardComponent implements OnInit, OnDestroy {
-  match: Match;
+  match: Match | null;
   matchesSubscription: Subscription;
+  previousSets: SetDetails[] | null;
 
   constructor(private readonly matchService: MatchService) {}
 
@@ -21,6 +24,13 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
 
         if (matches && matches.length) {
           this.match = matches[0];
+
+          this.previousSets = this.match.sets.filter(
+            (set) => set.setNumber !== this.match!.currentSet
+          );
+        } else {
+          this.match = null;
+          this.previousSets = null;
         }
       });
   }
@@ -32,8 +42,8 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
   }
 
   getCurrentPoint(teamNumber: number) {
-    const currentSet = this.match.sets.filter(
-      (set) => set.setNumber === this.match.currentSet
+    const currentSet = this.match!.sets.filter(
+      (set) => set.setNumber === this.match!.currentSet
     )[0];
 
     return teamNumber === 1
