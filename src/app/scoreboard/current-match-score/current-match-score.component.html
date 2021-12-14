@@ -2,10 +2,10 @@
   <ng-container *ngIf="match; else noOngoingMatch">
     <p class="text-xl">Match {{ match.matchNumber }} (Set {{ match.currentSet + 1 }})</p>
     <div class="flex flex-col lg:flex-row justify-center w-full pt-4">
-      <div class="card shadow-2xl h-auto w-full lg:w-2/4 lg:mr-4">
-        <div class="card-body items-center">
+      <div class="card shadow-xl bg-gray-200 h-auto w-full lg:w-2/4 lg:mr-4">
+        <div class="card-body items-center p-5">
           <h4 class="card-title font-medium text-lg mb-0 break-all">{{ match.firstTeamData?.name }}</h4>
-          <p class="text-8xl text-primary">{{ getCurrentPoint(1) }}</p>
+          <p class="text-6xl text-primary">{{ getCurrentPoint(1) }}</p>
           <div class="flex flex-col self-start pt-4">
             <p class="font-semibold" *ngFor="let player of match.firstTeamData?.players">
               {{ player.name }} <span *ngIf="player.captain">(C)</span>
@@ -13,10 +13,10 @@
           </div>
         </div>
       </div>
-      <div class="card shadow-2xl h-auto w-full lg:w-2/4 mt-4 lg:mt-0">
-        <div class="card-body items-center">
+      <div class="card shadow-xl bg-gray-200 h-auto w-full lg:w-2/4 mt-4 lg:mt-0">
+        <div class="card-body items-center p-5">
           <h4 class="card-title font-medium text-lg mb-0 break-all">{{ match.secondTeamData?.name }}</h4>
-          <p class="text-8xl text-primary">{{ getCurrentPoint(2) }}</p>
+          <p class="text-6xl text-primary">{{ getCurrentPoint(2) }}</p>
           <div class="flex flex-col self-start pt-4">
             <p class="font-semibold" *ngFor="let player of match.secondTeamData?.players">
               {{ player.name }} <span *ngIf="player.captain">(C)</span>
@@ -25,16 +25,16 @@
         </div>
       </div>
     </div>
-    <div *ngIf="previousSets && previousSets.length" class="mt-10">
-      <div class="flex flex-row items-center text-lg border-solid border-primary border-1">
+    <div *ngIf="previousSets && previousSets.length" class="mt-5">
+      <div class="flex flex-row items-center text-lg border-solid border-gray-400 border-2">
         <div class="p-2 flex-grow">{{ match.firstTeamData?.name }}</div>
-        <div class="p-2 border-l-1 border-primary previous-point" *ngFor="let set of previousSets">
+        <div class="p-2 border-l-2 border-gray-400 previous-point" *ngFor="let set of previousSets">
           {{ set.firstTeamPoint }}
         </div>
       </div>
-      <div class="flex flex-row items-center border-solid text-lg border-primary border-1 border-t-0">
+      <div class="flex flex-row items-center border-solid text-lg border-gray-400 border-2 border-t-0">
         <div class="p-2 flex-grow">{{ match.secondTeamData?.name }}</div>
-        <div class="p-2 border-l-1 border-primary previous-point" *ngFor="let set of previousSets">
+        <div class="p-2 border-l-2 border-gray-400 previous-point" *ngFor="let set of previousSets">
           {{ set.secondTeamPoint }}
         </div>
       </div>
