@@ -10,9 +10,8 @@ import { SetDetails } from '../core/modal/set-details';
   styleUrls: ['./scoreboard.component.scss'],
 })
 export class ScoreboardComponent implements OnInit, OnDestroy {
-  match: Match | null;
+  ongoingMatch: Match | null;
   matchesSubscription: Subscription;
-  previousSets: SetDetails[] | null;
 
   constructor(private readonly matchService: MatchService) {}
 
@@ -23,14 +22,9 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
         const matches = res.filter((match) => match.ongoing);
 
         if (matches && matches.length) {
-          this.match = matches[0];
-
-          this.previousSets = this.match.sets.filter(
-            (set) => set.setNumber !== this.match!.currentSet
-          );
+          this.ongoingMatch = matches[0];
         } else {
-          this.match = null;
-          this.previousSets = null;
+          this.ongoingMatch = null;
         }
       });
   }
@@ -39,15 +33,5 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
     if (this.matchesSubscription) {
       this.matchesSubscription.unsubscribe();
     }
-  }
-
-  getCurrentPoint(teamNumber: number) {
-    const currentSet = this.match!.sets.filter(
-      (set) => set.setNumber === this.match!.currentSet
-    )[0];
-
-    return teamNumber === 1
-      ? currentSet.firstTeamPoint
-      : currentSet.secondTeamPoint;
   }
 }
