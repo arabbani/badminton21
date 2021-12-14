@@ -30,7 +30,7 @@
           <input type="text" id="player2-name" class="input input-bordered input-sm focus:shadow-none"
             formControlName="secondPlayerName">
         </div>
-        <div class="mt-5">
+        <div class="mt-4">
           <div class="font-medium">Please select captain</div>
           <div class="form-control">
             <label class="cursor-pointer label justify-start">
@@ -47,7 +47,7 @@
         </div>
       </form>
 
-      <div class="pt-5 text-error" *ngIf="errorText">{{ errorText }}</div>
+      <div class="pt-4 text-error" *ngIf="errorText">{{ errorText }}</div>
       <div class="justify-center card-actions">
         <button type="button" [disabled]="!teamForm.valid || saving"
           class="btn btn-primary btn-sm !disabled:cursor-not-allowed" [class.btn-disabled]="!teamForm.valid"

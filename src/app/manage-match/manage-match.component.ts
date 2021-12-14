@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Match } from '../core/modal/match';
@@ -12,8 +13,12 @@ export class ManageMatchComponent implements OnInit, OnDestroy {
   matchesSubscription: Subscription;
   updatingPoint = false;
   maximumWinningPoint: number;
+  matchFinished = false;
 
-  constructor(private readonly matchService: MatchService) {}
+  constructor(
+    private readonly matchService: MatchService,
+    private readonly location: Location
+  ) {}
 
   ngOnInit(): void {
     this.matchesSubscription = this.matchService
@@ -67,9 +72,11 @@ export class ManageMatchComponent implements OnInit, OnDestroy {
             updatedMatch.currentSetWinningPoint =
               this.match.currentSetWinningPoint + 1;
           } else if (set.firstTeamPoint === this.match.currentSetWinningPoint) {
+            updatedMatch.currentSetWinningPoint = this.match.winningPoint;
+
             if (this.match.currentSet + 1 < this.match.numberOfSets) {
               updatedMatch.currentSet = this.match.currentSet + 1;
-              updatedMatch.currentSetWinningPoint = this.match.winningPoint;
+              set.setWinnerTeam = 1;
               sets.push({
                 setNumber: updatedMatch.currentSet,
                 firstTeamPoint: 0,
@@ -77,8 +84,8 @@ export class ManageMatchComponent implements OnInit, OnDestroy {
               });
               setCompleted = true;
             } else {
-              updatedMatch.finished = true;
               updatedMatch.winnerTeam = 1;
+              this.matchFinished = true;
             }
           }
         } else {
@@ -95,8 +102,10 @@ export class ManageMatchComponent implements OnInit, OnDestroy {
             set.secondTeamPoint === this.match.currentSetWinningPoint
           ) {
             updatedMatch.currentSetWinningPoint = this.match.winningPoint;
+
             if (this.match.currentSet + 1 < this.match.numberOfSets) {
               updatedMatch.currentSet = this.match.currentSet + 1;
+              set.setWinnerTeam = 2;
               sets.push({
                 setNumber: updatedMatch.currentSet,
                 firstTeamPoint: 0,
@@ -104,23 +113,42 @@ export class ManageMatchComponent implements OnInit, OnDestroy {
               });
               setCompleted = true;
             } else {
-              updatedMatch.finished = true;
-              updatedMatch.ongoing = false;
               updatedMatch.winnerTeam = 2;
+              this.matchFinished = true;
             }
           }
         }
       }
     });
     updatedMatch.sets = sets;
-    await this.matchService.updateMatch(this.match.id!, updatedMatch);
-    this.updatingPoint = false;
-    if (setCompleted) {
-      this.setCompletionAlert();
-    }
+
+    try {
+      await this.matchService.updateMatch(this.match.id!, updatedMatch);
+      this.updatingPoint = false;
+
+      if (setCompleted) {
+        this.setCompletionAlert();
+      }
+
+      if (this.matchFinished) {
+        this.setFinishAlert();
+      }
+    } catch (error) {}
   }
 
   setCompletionAlert() {
     window.alert(`Set ${this.match.currentSet + 1} Completed`);
+  }
+
+  setFinishAlert() {
+    setTimeout(async () => {
+      try {
+        await this.matchService.updateMatch(this.match.id!, {
+          finished: true,
+          ongoing: false,
+        });
+        this.location.back();
+      } catch (error) {}
+    }, 60 * 1000 * 2);
   }
 }
