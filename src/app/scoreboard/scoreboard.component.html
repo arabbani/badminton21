@@ -1,1 +1,5 @@
-<app-current-match-score *ngIf="ongoingMatch" [match]="ongoingMatch"></app-current-match-score>
+<div class="flex flex-col justify-center items-center p-5 min-h-screen max-h-screen">
+  <div class="w-full grid grid-cols-12 gap-5">
+    <app-current-match-score class="col-span-9" *ngIf="ongoingMatch" [match]="ongoingMatch"></app-current-match-score>
+  </div>
+</div>
