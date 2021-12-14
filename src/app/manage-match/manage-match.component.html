@@ -1,0 +1,44 @@
+<div class="flex flex-col justify-center items-center p-3 md:p-5 w-full min-h-screen">
+  <ng-container *ngIf="match; else noOngoingMatch">
+    <p class="text-2xl">Match {{ match.matchNumber }} (Set {{ match.currentSet + 1 }})</p>
+    <div class="flex flex-col lg:flex-row justify-center w-full pt-5">
+      <div class="card bordered h-auto w-full lg:w-2/4 lg:mr-5">
+        <div class="card-body">
+          <h4 class="card-title font-medium text-lg break-all">{{ match.firstTeamData?.name }}</h4>
+          <div class="flex flex-col md:flex-row w-full justify-between">
+            <p *ngFor="let player of match.firstTeamData?.players">
+              {{ player.name }} <span *ngIf="player.captain">(C)</span>
+            </p>
+          </div>
+          <p class="pt-5 text-center text-4xl font-bold">{{ getCurrentPoint(1) }}</p>
+          <div class="mt-5 text-right">
+            <button class="btn btn-circle btn-primary !disabled:cursor-not-allowed text-lg" (click)="addPoint(1)"
+              [disabled]="updatingPoint">+1</button>
+          </div>
+        </div>
+      </div>
+      <div class="card bordered h-auto w-full lg:w-2/4 mt-5 lg:mt-0">
+        <div class="card-body">
+          <h4 class="card-title font-medium text-lg break-all">{{ match.secondTeamData?.name }}</h4>
+          <div class="flex flex-col md:flex-row w-full justify-between">
+            <p *ngFor="let player of match.secondTeamData?.players">
+              {{ player.name }} <span *ngIf="player.captain">(C)</span>
+            </p>
+          </div>
+          <p class="pt-5 text-center text-4xl font-bold">{{ getCurrentPoint(2) }}</p>
+          <div class="mt-5 text-right">
+            <button class="btn btn-circle btn-primary !disabled:cursor-not-allowed text-lg" (click)="addPoint(2)"
+              [disabled]="updatingPoint">+1</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #noOngoingMatch>
+    <div class="card shadow-2xl h-auto w-auto">
+      <div class="card-body">
+        There is no ongoing match
+      </div>
+    </div>
+  </ng-template>
+</div>

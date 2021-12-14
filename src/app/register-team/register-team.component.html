@@ -1,0 +1,69 @@
+<div class="flex justify-center items-center p-3 md:p-5 min-h-screen">
+  <div class="card shadow-2xl h-auto w-full md:w-2/4">
+    <div class="card-body">
+      <h2 class="card-title">Team Registration</h2>
+      <form [formGroup]="teamForm" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div class="form-control">
+          <label class="label" for="team-name">
+            <span class="label-text">Team Name</span>
+          </label>
+          <input type="text" id="team-name" class="input input-bordered input-sm focus:shadow-none"
+            formControlName="name">
+        </div>
+        <div class="form-control">
+          <label class="label" for="place">
+            <span class="label-text">Place</span>
+          </label>
+          <input type="text" id="place" class="input input-bordered input-sm focus:shadow-none" formControlName="place">
+        </div>
+        <div class="form-control">
+          <label class="label" for="player1-name">
+            <span class="label-text">First Player</span>
+          </label>
+          <input type="text" id="player1-name" class="input input-bordered input-sm focus:shadow-none"
+            formControlName="firstPlayerName">
+        </div>
+        <div class="form-control">
+          <label class="label" for="player2-name">
+            <span class="label-text">Second Player</span>
+          </label>
+          <input type="text" id="player2-name" class="input input-bordered input-sm focus:shadow-none"
+            formControlName="secondPlayerName">
+        </div>
+        <div class="mt-5">
+          <div class="font-medium">Please select captain</div>
+          <div class="form-control">
+            <label class="cursor-pointer label justify-start">
+              <input type="radio" class="radio radio-sm" formControlName="captain" name="captain" value="1">
+              <span class="label-text ml-3">{{ teamForm.value.firstPlayerName }}</span>
+            </label>
+          </div>
+          <div class="form-control">
+            <label class="cursor-pointer label justify-start">
+              <input type="radio" class="radio radio-sm" formControlName="captain" name="captain" value="2">
+              <span class="label-text ml-3">{{ teamForm.value.secondPlayerName }}</span>
+            </label>
+          </div>
+        </div>
+      </form>
+
+      <div class="pt-5 text-error" *ngIf="errorText">{{ errorText }}</div>
+      <div class="justify-center card-actions">
+        <button type="button" [disabled]="!teamForm.valid || saving"
+          class="btn btn-primary btn-sm !disabled:cursor-not-allowed" [class.btn-disabled]="!teamForm.valid"
+          [class.loading]="saving" (click)="register()">Register</button>
+        <button type="button" class="btn btn-secondary btn-sm" (click)="goBack()">Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" [class.modal-open]="saved && !errorText">
+  <div class="modal-box">
+    <p>Registration success. Do you want to register another team</p>
+    <div class="modal-action">
+      <a class="btn btn-primary btn-sm" (click)="registerNewTeam()">Yes</a>
+      <a class="btn btn-sm" (click)="goBack()">No</a>
+    </div>
+  </div>
+</div>

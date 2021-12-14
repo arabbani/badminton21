@@ -1,0 +1,30 @@
+<div class="flex flex-col p-3 md:p-5 w-full mx-auto">
+  <ng-container *ngIf="matches && matches.length; else noMatches">
+    <h2 class="text-2xl font-semibold mb-5">Matches</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="card shadow-2xl" *ngFor="let match of matches">
+        <div class="card-body items-center p-5">
+          <div class="badge badge-primary self-end" *ngIf="match.ongoing">Ongoing</div>
+          <div class="badge badge-accent self-end" *ngIf="match.matchNumber === nextMatchNumber">Next Match</div>
+          <p class="text-center break-all pt-5">{{ match.firstTeamData?.name }}</p>
+          <div class="divider text-3xl">Vs</div>
+          <p class="text-center break-all">{{ match.secondTeamData?.name }}</p>
+          <div class="flex justify-between w-full pt-5 text-secondary">
+            <p>No of Sets: {{ match.numberOfSets }}</p>
+            <p>Match Point: {{ match.winningPoint }}</p>
+          </div>
+          <a class="cursor-pointer mt-5 text-primary" (click)="startMatch(match)"
+            *ngIf="canStartMatch && !match.ongoing && match.matchNumber === nextMatchNumber">Start Match</a>
+          <a class="cursor-pointer mt-5 text-primary" (click)="resumeMatch()" *ngIf="match.ongoing">Resume Match</a>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #noMatches>
+    <div class="card shadow-2xl h-auto w-auto">
+      <div class="card-body">
+        There are no pending matches right now
+      </div>
+    </div>
+  </ng-template>
+</div>
