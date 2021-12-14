@@ -1,6 +1,12 @@
 module.exports = {
-  mode: "jit",
-  purge: ["./src/**/*.{html,ts}"],
+  // mode: "jit",
+  purge: {
+    content: ["./src/**/*.{html,ts}"],
+    options: {
+      safelist: [/data-theme$/],
+    },
+  },
+  important: true,
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
@@ -8,5 +14,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [require("@tailwindcss/typography"), require("daisyui")],
 };
