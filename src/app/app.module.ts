@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 
+// Dummy Comment
 @NgModule({
   declarations: [AppComponent],
   imports: [
