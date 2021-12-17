@@ -1,5 +1,28 @@
-<div class="flex flex-col justify-center items-center p-5 min-h-screen max-h-screen">
-  <div class="w-full grid grid-cols-12 gap-5">
-    <app-current-match-score class="col-span-9" *ngIf="ongoingMatch" [match]="ongoingMatch"></app-current-match-score>
+<div class="flex flex-col min-h-screen max-h-screen justify-center">
+  <div class="w-full grid grid-cols-12 gap-5 p-5 min-h-screen max-h-screen">
+    <div class="col-span-2" *ngIf="!ongoingMatch && nextMatch"></div>
+    <div [class.col-span-9]="ongoingMatch" [class.col-span-4]="!ongoingMatch && nextMatch"
+      [class.self-center]="!ongoingMatch && nextMatch">
+      <app-current-match-score *ngIf="ongoingMatch; else nextMatchUI" [match]="ongoingMatch">
+      </app-current-match-score>
+      <ng-template #nextMatchUI>
+        <div class="card shadow-2xl">
+          <div class="card-body items-center p-5">
+            <div class="badge badge-accent self-end">Next Match</div>
+            <p class="text-center break-all pt-4">{{ nextMatch?.firstTeamData?.name }}</p>
+            <div class="divider text-3xl">Vs</div>
+            <p class="text-center break-all">{{ nextMatch?.secondTeamData?.name }}</p>
+            <div class="flex justify-between w-full pt-4 text-info">
+              <p>No of Sets: {{ nextMatch?.numberOfSets }}</p>
+              <p>Match Point: {{ nextMatch?.winningPoint }}</p>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+    <div class="col-span-3" *ngIf="!ongoingMatch && nextMatch"></div>
+    <div class="col-span-3 w-full">
+      <app-donors></app-donors>
+    </div>
   </div>
 </div>

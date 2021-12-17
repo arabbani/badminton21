@@ -7,10 +7,10 @@ import { SetDetails } from '../core/modal/set-details';
 @Component({
   selector: 'app-scoreboard',
   templateUrl: './scoreboard.component.html',
-  styleUrls: ['./scoreboard.component.scss'],
 })
 export class ScoreboardComponent implements OnInit, OnDestroy {
   ongoingMatch: Match | null;
+  nextMatch: Match | null;
   matchesSubscription: Subscription;
 
   constructor(private readonly matchService: MatchService) {}
@@ -22,9 +22,18 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
         const matches = res.filter((match) => match.ongoing);
 
         if (matches && matches.length) {
+          this.nextMatch = null;
           this.ongoingMatch = matches[0];
         } else {
           this.ongoingMatch = null;
+          const finishedMatchs = res.filter((match) => !match.finished);
+          const nextMatches = finishedMatchs.sort(
+            (matchA, matchB) => matchA.matchNumber - matchB.matchNumber
+          );
+
+          if (nextMatches && nextMatches.length) {
+            this.nextMatch = nextMatches[0];
+          }
         }
       });
   }
