@@ -40,8 +40,8 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
           );
         } else {
           this.ongoingMatch = null;
-          const finishedMatchs = res.filter((match) => !match.finished);
-          const nextMatches = finishedMatchs.sort(
+          const nextMatchs = res.filter((match) => !match.finished);
+          const nextMatches = nextMatchs.sort(
             (matchA, matchB) => matchA.matchNumber - matchB.matchNumber
           );
 

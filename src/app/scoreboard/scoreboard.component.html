@@ -1,5 +1,5 @@
 <div class="flex flex-col min-h-screen max-h-screen justify-center items-center w-full p-3 md:p-5">
-  <ng-container *ngIf="ongoingMatch && !nextMatch; nextMatchUI">
+  <ng-container *ngIf="ongoingMatch; else nextMatchUI">
     <p class="text-xl">Match {{ ongoingMatch.matchNumber }} (Set {{ ongoingMatch.currentSet + 1 }})</p>
     <div class="flex flex-col lg:flex-row justify-center w-11/12 pt-4">
       <div class="card shadow-xl bg-gray-200 h-auto w-full lg:w-2/4 lg:mr-4">
@@ -41,7 +41,7 @@
     </div>
   </ng-container>
   <ng-template #nextMatchUI>
-    <div class="card shadow-2xl">
+    <div class="card shadow-2xl w-1/3" *ngIf="nextMatch">
       <div class="card-body items-center p-5">
         <div class="badge badge-accent self-end">Next Match</div>
         <p class="text-center break-all pt-4">{{ nextMatch?.firstTeamData?.name }}</p>
