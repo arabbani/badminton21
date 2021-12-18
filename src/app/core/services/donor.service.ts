@@ -8,6 +8,7 @@ export class DonorService {
   private readonly donors: Donor[] = [
     {
       name: 'Nakibul Hoque',
+      header: 'Donor',
       donation: '10000',
     },
     {
@@ -40,10 +41,6 @@ export class DonorService {
     {
       name: 'Farid Uddin Akhtar',
       header: 'Ex Vice President, AAMSU, Morigaon',
-      donation: '5000',
-    },
-    {
-      name: 'Farid Uddin Akhtar',
       donation: '5000',
     },
   ];

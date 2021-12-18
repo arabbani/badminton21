@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -17,7 +18,8 @@ export class ConfigComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
+    private readonly location: Location
   ) {}
 
   ngOnInit(): void {
@@ -66,5 +68,9 @@ export class ConfigComponent implements OnInit, OnDestroy {
 
   updateConfig(config: Partial<Config>) {
     this.configService.updateConfig(this.config.id!, config);
+  }
+
+  goBack() {
+    this.location.back();
   }
 }
