@@ -87,11 +87,11 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
   openDonorDialog() {
     this.router.navigate([{ outlets: { modal: 'donor' } }]);
 
-    // setTimeout(() => {
-    //   this.configService.updateConfig(this.config.id!, {
-    //     showDonor: false,
-    //   });
-    // }, this.config.donowDialogTimeout);
+    setTimeout(() => {
+      this.configService.updateConfig(this.config.id!, {
+        showDonor: false,
+      });
+    }, this.config.donorDialogTimeout);
   }
 
   closeDonorModal() {
