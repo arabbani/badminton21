@@ -41,7 +41,7 @@
     </div>
   </ng-container>
   <ng-template #nextMatchUI>
-    <div class="card shadow-2xl w-1/3" *ngIf="nextMatch">
+    <div class="card shadow-2xl w-1/3" *ngIf="nextMatch; else noMatches">
       <div class="card-body items-center p-5">
         <div class="badge self-end p-3 pb-4 bg-black text-xl font-bold">Next Match</div>
         <p class="text-center break-all pt-4 text-4xl" *ngFor="let player of nextMatch.firstTeamData?.players">
@@ -61,5 +61,12 @@
         </div>
       </div>
     </div>
+    <ng-template #noMatches>
+      <div class="card shadow-2xl h-auto w-auto">
+        <div class="card-body">
+          There are no scheduled matches right now
+        </div>
+      </div>
+    </ng-template>
   </ng-template>
 </div>
