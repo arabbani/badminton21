@@ -33,6 +33,11 @@ const routes: Routes = [
     outlet: 'modal',
   },
   {
+    path: 'config',
+    loadChildren: () =>
+      import('./config/config.module').then((m) => m.ConfigModule),
+  },
+  {
     path: '',
     loadChildren: () =>
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
