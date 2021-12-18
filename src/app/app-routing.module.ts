@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DonorComponent } from './donor/donor.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
       import('./manage-match/manage-match.module').then(
         (m) => m.ManageMatchModule
       ),
+  },
+  {
+    path: 'donor',
+    component: DonorComponent,
+    outlet: 'modal',
   },
   {
     path: '',

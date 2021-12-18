@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Match } from 'src/app/core/modal/match';
 import { MatchService } from 'src/app/core/services/match.service';
+import { Config } from '../core/modal/config';
 import { SetDetails } from '../core/modal/set-details';
+import { ConfigService } from '../core/services/config.service';
 
 @Component({
   selector: 'app-scoreboard',
@@ -12,9 +15,15 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
   ongoingMatch: Match | null;
   nextMatch: Match | null;
   matchesSubscription: Subscription;
+  configSubscription: Subscription;
   previousSets: SetDetails[] | null;
+  config: Config;
 
-  constructor(private readonly matchService: MatchService) {}
+  constructor(
+    private readonly matchService: MatchService,
+    private readonly router: Router,
+    private readonly configService: ConfigService
+  ) {}
 
   ngOnInit(): void {
     this.matchesSubscription = this.matchService
@@ -41,11 +50,27 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
           }
         }
       });
+
+    this.configSubscription = this.configService
+      .getCofig()
+      .subscribe((config) => {
+        this.config = config[0];
+
+        if (this.config.showDonor) {
+          this.openDonorDialog();
+        } else {
+          this.closeDonorModal();
+        }
+      });
   }
 
   ngOnDestroy() {
     if (this.matchesSubscription) {
       this.matchesSubscription.unsubscribe();
+    }
+
+    if (this.configSubscription) {
+      this.configSubscription.unsubscribe();
     }
   }
 
@@ -57,5 +82,19 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
     return teamNumber === 1
       ? currentSet.firstTeamPoint
       : currentSet.secondTeamPoint;
+  }
+
+  openDonorDialog() {
+    this.router.navigate([{ outlets: { modal: 'donor' } }]);
+
+    // setTimeout(() => {
+    //   this.configService.updateConfig(this.config.id!, {
+    //     showDonor: false,
+    //   });
+    // }, this.config.donowDialogTimeout);
+  }
+
+  closeDonorModal() {
+    this.router.navigate([{ outlets: { modal: null } }]);
   }
 }

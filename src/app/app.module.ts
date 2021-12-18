@@ -6,10 +6,11 @@ import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { DonorComponent } from './donor/donor.component';
 
 // Dummy Comment
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, DonorComponent],
   imports: [
     BrowserModule,
     CoreModule,

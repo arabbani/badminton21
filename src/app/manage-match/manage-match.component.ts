@@ -1,7 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Config } from '../core/modal/config';
 import { Match } from '../core/modal/match';
+import { ConfigService } from '../core/services/config.service';
 import { MatchService } from '../core/services/match.service';
 
 @Component({
@@ -11,13 +13,16 @@ import { MatchService } from '../core/services/match.service';
 export class ManageMatchComponent implements OnInit, OnDestroy {
   match: Match;
   matchesSubscription: Subscription;
+  configSubscription: Subscription;
   updatingPoint = false;
   maximumWinningPoint: number;
   matchFinished = false;
+  config: Config;
 
   constructor(
     private readonly matchService: MatchService,
-    private readonly location: Location
+    private readonly location: Location,
+    private readonly configService: ConfigService
   ) {}
 
   ngOnInit(): void {
@@ -36,11 +41,20 @@ export class ManageMatchComponent implements OnInit, OnDestroy {
           }
         }
       });
+    this.configSubscription = this.configService
+      .getCofig()
+      .subscribe((config) => {
+        this.config = config[0];
+      });
   }
 
   ngOnDestroy() {
     if (this.matchesSubscription) {
       this.matchesSubscription.unsubscribe();
+    }
+
+    if (this.configSubscription) {
+      this.configSubscription.unsubscribe();
     }
   }
 
@@ -149,6 +163,6 @@ export class ManageMatchComponent implements OnInit, OnDestroy {
         });
         this.location.back();
       } catch (error) {}
-    }, 60 * 1000 * 2);
+    }, this.config.matchTimeout);
   }
 }
