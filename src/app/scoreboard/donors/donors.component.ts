@@ -9,15 +9,15 @@ export class DonorsComponent {
   readonly donors: Donor[] = [
     {
       name: 'Umar Kazi',
-      title: '2nd Prize Donor',
+      donation: '2nd Prize Donor',
     },
     {
       name: 'Rashidul Islam',
-      title: '3rd Prize Donor',
+      donation: '3rd Prize Donor',
     },
     {
       name: 'Rashidul Islam',
-      title: '3rd Prize Donor',
+      donation: '3rd Prize Donor',
     },
   ];
 }

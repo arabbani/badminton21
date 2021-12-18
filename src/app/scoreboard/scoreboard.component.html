@@ -1,28 +1,57 @@
-<div class="flex flex-col min-h-screen max-h-screen justify-center">
-  <div class="w-full grid grid-cols-12 gap-5 p-5 min-h-screen max-h-screen">
-    <div class="col-span-2" *ngIf="!ongoingMatch && nextMatch"></div>
-    <div [class.col-span-9]="ongoingMatch" [class.col-span-4]="!ongoingMatch && nextMatch"
-      [class.self-center]="!ongoingMatch && nextMatch">
-      <app-current-match-score *ngIf="ongoingMatch; else nextMatchUI" [match]="ongoingMatch">
-      </app-current-match-score>
-      <ng-template #nextMatchUI>
-        <div class="card shadow-2xl">
-          <div class="card-body items-center p-5">
-            <div class="badge badge-accent self-end">Next Match</div>
-            <p class="text-center break-all pt-4">{{ nextMatch?.firstTeamData?.name }}</p>
-            <div class="divider text-3xl">Vs</div>
-            <p class="text-center break-all">{{ nextMatch?.secondTeamData?.name }}</p>
-            <div class="flex justify-between w-full pt-4 text-info">
-              <p>No of Sets: {{ nextMatch?.numberOfSets }}</p>
-              <p>Match Point: {{ nextMatch?.winningPoint }}</p>
-            </div>
+<div class="flex flex-col min-h-screen max-h-screen justify-center items-center w-full p-3 md:p-5">
+  <ng-container *ngIf="ongoingMatch && !nextMatch; nextMatchUI">
+    <p class="text-xl">Match {{ ongoingMatch.matchNumber }} (Set {{ ongoingMatch.currentSet + 1 }})</p>
+    <div class="flex flex-col lg:flex-row justify-center w-11/12 pt-4">
+      <div class="card shadow-xl bg-gray-200 h-auto w-full lg:w-2/4 lg:mr-4">
+        <div class="card-body items-center">
+          <h4 class="card-title font-medium break-all">{{ ongoingMatch.firstTeamData?.name }}</h4>
+          <p class="text-8xl text-primary">{{ getCurrentPoint(1) }}</p>
+          <div class="flex flex-col self-start pt-4">
+            <p class="font-semibold" *ngFor="let player of ongoingMatch.firstTeamData?.players">
+              {{ player.name }} <span *ngIf="player.captain">(C)</span>
+            </p>
           </div>
         </div>
-      </ng-template>
+      </div>
+      <div class="card shadow-xl bg-gray-200 h-auto w-full lg:w-2/4 mt-4 lg:mt-0">
+        <div class="card-body items-center">
+          <h4 class="card-title font-medium break-all">{{ ongoingMatch.secondTeamData?.name }}</h4>
+          <p class="text-8xl text-primary">{{ getCurrentPoint(2) }}</p>
+          <div class="flex flex-col self-start pt-4">
+            <p class="font-semibold" *ngFor="let player of ongoingMatch.secondTeamData?.players">
+              {{ player.name }} <span *ngIf="player.captain">(C)</span>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-span-3" *ngIf="!ongoingMatch && nextMatch"></div>
-    <div class="col-span-3 w-full">
-      <app-donors></app-donors>
+    <div *ngIf="previousSets && previousSets.length" class="mt-5">
+      <div class="flex flex-row items-center text-lg border-solid border-gray-400 border-2">
+        <div class="py-3 px-5 flex-grow">{{ ongoingMatch.firstTeamData?.name }}</div>
+        <div class="py-3 px-5 border-l-2 border-gray-400 previous-point" *ngFor="let set of previousSets">
+          {{ set.firstTeamPoint }}
+        </div>
+      </div>
+      <div class="flex flex-row items-center border-solid text-lg border-gray-400 border-2 border-t-0">
+        <div class="py-3 px-5 flex-grow">{{ ongoingMatch.secondTeamData?.name }}</div>
+        <div class="py-3 px-5 border-l-2 border-gray-400 previous-point" *ngFor="let set of previousSets">
+          {{ set.secondTeamPoint }}
+        </div>
+      </div>
     </div>
-  </div>
+  </ng-container>
+  <ng-template #nextMatchUI>
+    <div class="card shadow-2xl">
+      <div class="card-body items-center p-5">
+        <div class="badge badge-accent self-end">Next Match</div>
+        <p class="text-center break-all pt-4">{{ nextMatch?.firstTeamData?.name }}</p>
+        <div class="divider text-3xl">Vs</div>
+        <p class="text-center break-all">{{ nextMatch?.secondTeamData?.name }}</p>
+        <div class="flex justify-between w-full pt-4 text-info">
+          <p>No of Sets: {{ nextMatch?.numberOfSets }}</p>
+          <p>Match Point: {{ nextMatch?.winningPoint }}</p>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </div>

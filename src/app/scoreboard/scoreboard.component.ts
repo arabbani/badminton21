@@ -12,6 +12,7 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
   ongoingMatch: Match | null;
   nextMatch: Match | null;
   matchesSubscription: Subscription;
+  previousSets: SetDetails[] | null;
 
   constructor(private readonly matchService: MatchService) {}
 
@@ -24,6 +25,10 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
         if (matches && matches.length) {
           this.nextMatch = null;
           this.ongoingMatch = matches[0];
+
+          this.previousSets = this.ongoingMatch.sets.filter(
+            (set) => set.setNumber !== this.ongoingMatch!.currentSet
+          );
         } else {
           this.ongoingMatch = null;
           const finishedMatchs = res.filter((match) => !match.finished);
@@ -42,5 +47,15 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
     if (this.matchesSubscription) {
       this.matchesSubscription.unsubscribe();
     }
+  }
+
+  getCurrentPoint(teamNumber: number) {
+    const currentSet = this.ongoingMatch!.sets.filter(
+      (set) => set.setNumber === this.ongoingMatch!.currentSet
+    )[0];
+
+    return teamNumber === 1
+      ? currentSet.firstTeamPoint
+      : currentSet.secondTeamPoint;
   }
 }
